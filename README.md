@@ -32,7 +32,8 @@ easy to setup and use. The best part is, it's completely free.
 Ensure you have a MySQL container running that osTicket can use to store its data.
 
 ```bash
-docker run --name osticket_mysql -d -e MYSQL_ROOT_PASSWORD=secret -e MYSQL_USER=osticket -e MYSQL_PASSWORD=secret -e MYSQL_DATABASE=osticket mariadb
+docker run --name osticket_mysql -d -e MYSQL_ROOT_PASSWORD=secret \
+ -e MYSQL_USER=osticket -e MYSQL_PASSWORD=secret -e MYSQL_DATABASE=osticket mariadb
 ```
 
 **Now run this image and link the MySQL container.**

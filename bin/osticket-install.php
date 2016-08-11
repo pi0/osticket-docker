@@ -5,9 +5,10 @@
 //Script settings
 
 define('INSTALL_DIR','/var/www/src/public');
-define('SETUP_DIR',INSTALL_DIR.'/setup');
-define('INSTALL_CONFIG',INSTALL_DIR.'/include/ost-sampleconfig.php');
-define('OSTICKET_CONFIGFILE',INSTALL_DIR.'/include/ost-config.php');
+define('SETUP_DIR',INSTALL_DIR.'/../setup'); // use git setup
+define('INC_DIR',INSTALL_DIR.'/include');
+define('INSTALL_CONFIG',INC_DIR.'/ost-sampleconfig.php');
+define('OSTICKET_CONFIGFILE',INC_DIR.'/ost-config.php');
 
 define('MAIL_CONFIG','/etc/msmtp.default');
 define('MAIL_CONFIG_FILE','/etc/msmtp');
@@ -18,9 +19,9 @@ define('CRON_JOB_FILE','/etc/cron.d/osticket');
 define('SECRET_FILE','/etc/osticket.secret.txt');
 define('CONNECTION_TIMEOUT_SEC', 180);
 
-//Configure settings from environmental variables
+define('LANGUAGE',getenv("LANGUAGE") ?: "en-us");
 
-$_SERVER['HTTP_ACCEPT_LANGUAGE'] = getenv("LANGUAGE") ?: "en-us";
+//Configure settings from environmental variables
 
 $vars = array(
   'name'      => getenv("INSTALL_NAME")  ?: 'My Helpdesk',
@@ -50,7 +51,10 @@ $vars = array(
 
 // Helper functions
 function err( $msg) {
-  fwrite(STDERR, "$msg\n");
+  echo '************** INSTALLER FATAL ERROR ***************';
+  echo "$msg\n";
+  echo '****************************************************';
+  echo "Die :(";
   exit(1);
 }
 
@@ -67,9 +71,10 @@ function convertStrToBool($varName, $default) {
 }
 
 // Require files (must be done before any output to avoid session start warnings)
+// $_SERVER['HTTP_ACCEPT_LANGUAGE'] = LANGUAGE; 
 chdir(SETUP_DIR);
 require SETUP_DIR.'/setup.inc.php';
-require_once INC_DIR.'class.installer.php';
+require SETUP_DIR.'/inc/class.installer.php';
 
 /************************* Mail Configuration *******************************************/
 echo "Configuring mail settings\n";
@@ -206,3 +211,12 @@ if (!$db_installed) {
   }
 }
 
+// Update system language
+echo "Setting system language to ".LANGUAGE."\n";
+$sql = "INSERT INTO `".$vars['prefix']."config` (`id`, `namespace`, `key`, `value`, `updated`) VALUES (NULL, 'core', 'system_language', '".LANGUAGE."', CURRENT_TIMESTAMP);";
+if(db_query($sql, false)) {
+    echo "System Language Set\n";
+}
+
+// Install finished   
+echo "Install Script finished!\n";

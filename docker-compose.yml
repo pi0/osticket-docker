@@ -4,8 +4,6 @@ services:
 
   osticket:
     image: osticket/osticket
-    volumes:
-      - osticket:/var/www
     environment:
       - MYSQL_HOST=mysql
       - MYSQL_DATABASE=osticket
@@ -14,6 +12,8 @@ services:
     
       # CHANGE ME
       - INSTALL_SECRET=secret
+        
+      - LANGUAGE=fa
 
     links:
       - mysql:mysql
@@ -23,17 +23,9 @@ services:
 
   mysql:
     image: mariadb
-    volumes:
-       - osticket_db:/var/lib/mysql 
     environment:
        - MYSQL_RANDOM_ROOT_PASSWORD=true
        - MYSQL_DATABASE=osticket
        - MYSQL_USER=osticket
        - MYSQL_PASSWORD=0T1cket
     restart: always
-
-volumes:
-   osticket:
-    driver: local
-   osticket_db:
-    driver: local

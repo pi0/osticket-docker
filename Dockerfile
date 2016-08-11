@@ -17,3 +17,5 @@ COPY conf/msmtp /etc/msmtp.default
 # Conf files
 RUN touch /etc/msmtp /etc/osticket.secret.txt /etc/cron.d/osticket && \
     chown www-data:www-data /etc/msmtp /etc/osticket.secret.txt /etc/cron.d/osticket
+
+VOLUME /var/www

@@ -1,14 +1,31 @@
-# [osTicket](http://osticket.com) Docker Image
-
+[osTicket](http://osticket.com) Docker Image
+=============================================
 [![Docker Pulls](https://img.shields.io/docker/pulls/osticket/osticket.svg)](https://hub.docker.com/r/osticket/osticket)
+<a href="http://osticket.com"><img src="http://osticket.com/sites/default/files/osTicket.jpg"
+align="left" hspace="10" vspace="6"></a>
 
-Docker image for running always Fresh and Bleeding Edge version of [osTicket](http://osticket.com/).
+Docker image for running always fresh and bleeding edge version of [osTicket](http://osticket.com/) Shipping with plugins and language packs.   
+**osTicket** is a widely-used open source support ticket system. It seamlessly
+integrates inquiries created via email, phone and web-based forms into a
+simple easy-to-use multi-user web interface. Manage, organize and archive
+all your support requests and responses in one place while providing your
+customers with accountability and responsiveness they deserve.
+
+## How osTicket works for you
+  1. Users create tickets via your website, email, or phone
+  2. Incoming tickets are saved and assigned to agents
+  3. Agents help your users resolve their issues
+
+osTicket is an attractive alternative to higher-cost and complex customer
+support systems; simple, lightweight, reliable, open source, web-based and
+easy to setup and use. The best part is, it's completely free.
+
   * Based on [PaaS](https://github.com/pi0/paas) Image.
   * Works with a linked [MySQL](https://registry.hub.docker.com/u/library/mysql/) docker container.
   * Automates configuration file & database installation
   * Email support 
   * Always have bleeding edge version 
-  * PHP5's [mail](http://php.net/manual/en/function.mail.php) function is configured to use [msmtp](http://msmtp.sourceforge.net/) to send out-going messages.
+  * Stock plugins are always installed and updated
 
 # Quick Start
 

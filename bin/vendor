@@ -12,3 +12,15 @@ chmod 644 /var/www/src/public/ost-config.php
 
 echo Removing setup files
 rm -r /var/www/src/public/setup
+
+echo Install/Update osTicket plugins
+cd /var/www/src/public/include/plugins
+if [ ! -d src/.git ] ;then
+    yes | GIT_SSH_COMMAND='ssh -o StrictHostKeyChecking=no' git clone --recursive "https://github.com/osTicket/osTicket-plugins.git" /tmp/plugins
+    cp -rv /tmp/plugins/ ..
+    rm -r /tmp/plugins
+fi
+
+git reset --hard
+git pull
+php make.php hydrate

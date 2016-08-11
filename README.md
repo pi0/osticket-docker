@@ -21,7 +21,7 @@ support systems; simple, lightweight, reliable, open source, web-based and
 easy to setup and use. The best part is, it's completely free.
 
   * Based on [PaaS](https://github.com/pi0/paas) Image.
-  * Works with a linked [MySQL](https://registry.hub.docker.com/u/library/mysql/) docker container.
+  * Works with a linked Mariadb docker container.
   * Automates configuration file & database installation
   * Email support 
   * Always have bleeding edge version 

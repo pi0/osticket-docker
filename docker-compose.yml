@@ -1,13 +1,39 @@
 version: '2'
+
 services:
-  www:
-    image: pooya/osticket
+
+  osticket:
+    image: osticket/osticket
     volumes:
       - osticket:/var/www
     environment:
-      - VIRTUAL_HOST=osticket
-    network_mode: "bridge"
+      - MYSQL_HOST=mysql
+      - MYSQL_DATABASE=osticket
+      - MYSQL_USER=osticket
+      - MYSQL_PASSWORD=0T1cket
+    
+      # CHANGE ME
+      - INSTALL_SECRET=secret
+
+    links:
+      - mysql:mysql
+    ports:
+      - "5335:80"
     restart: always
+
+  mysql:
+    image: mariadb
+    volumes:
+       - osticket_db:/var/lib/mysql 
+    environment:
+       - MYSQL_RANDOM_ROOT_PASSWORD=true
+       - MYSQL_DATABASE=osticket
+       - MYSQL_USER=osticket
+       - MYSQL_PASSWORD=0T1cket
+    restart: always
+
 volumes:
    osticket:
+    driver: local
+   osticket_db:
     driver: local

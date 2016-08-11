@@ -1,22 +1,21 @@
-# osTicket Docker Image
+# [osTicket](http://osticket.com) Docker Image
 
-# Introduction
+[![Docker Pulls](https://img.shields.io/docker/pulls/osticket/osticket.svg)](https://hub.docker.com/r/osticket/osticket)
 
-Docker image for running version Always Fresh and Bleeding Edge version of [OSTicket](http://osticket.com/).
+Docker image for running always Fresh and Bleeding Edge version of [osTicket](http://osticket.com/).
   * Based on [PaaS](https://github.com/pi0/paas) Image.
   * Works with a linked [MySQL](https://registry.hub.docker.com/u/library/mysql/) docker container.
   * Automates configuration file & database installation
   * Email support 
   * Always have bleeding edge version 
-
-PHP5's [mail](http://php.net/manual/en/function.mail.php) function is configured to use [msmtp](http://msmtp.sourceforge.net/) to send out-going messages.
+  * PHP5's [mail](http://php.net/manual/en/function.mail.php) function is configured to use [msmtp](http://msmtp.sourceforge.net/) to send out-going messages.
 
 # Quick Start
 
-Ensure you have a MySQL container running that OSTicket can use to store its data.
+Ensure you have a MySQL container running that osTicket can use to store its data.
 
 ```bash
-docker run --name osticket_mysql -d -e MYSQL_ROOT_PASSWORD=secret -e MYSQL_USER=osticket -e MYSQL_PASSWORD=secret -e MYSQL_DATABASE=osticket mysql
+docker run --name osticket_mysql -d -e MYSQL_ROOT_PASSWORD=secret -e MYSQL_USER=osticket -e MYSQL_PASSWORD=secret -e MYSQL_DATABASE=osticket mariadb
 ```
 
 **Now run this image and link the MySQL container.**
@@ -25,7 +24,7 @@ docker run --name osticket_mysql -d -e MYSQL_ROOT_PASSWORD=secret -e MYSQL_USER=
 docker run --name osticket -d --link osticket_mysql:mysql -p 8080:80 osticket/osticket
 ```
 
-Wait for the installation to complete then browse to your OSTicket staff control panel at `http://localhost:8080/scp`. Login with default admin user & password:
+Wait for the installation to complete then browse to your osTicket staff control panel at `http://localhost:8080/scp`. Login with default admin user & password:
 
 * username: **ostadmin**
 * password: **Admin1**
@@ -38,10 +37,10 @@ passwords above and read the rest of this documentation!
 The recommended connection method is to link your MySQL container to this image with the alias name ```mysql```. However, if you
 are using an external MySQL server then you can specify the connection details using environmental variables.
 
-OSTicket requires that the MySQL connection specifies a user with full permissions to the specified database. This is required for the automatic
+osTicket requires that the MySQL connection specifies a user with full permissions to the specified database. This is required for the automatic
  database installation.
 
-The OSTicket configuration file is re-created from the template every time the container is started. This ensures the
+The osTicket configuration file is re-created from the template every time the container is started. This ensures the
 MySQL connection details are always kept up to date automatically in case of any changes.
 
 ## Linked container Settings
@@ -82,7 +81,7 @@ The image does not run a MTA. Although one could be installed quite easily, gett
 will accept mail from your host & domain is not trivial due to anti-spam measures. This is additionally difficult to do 
 from ephemeral docker containers that run in a cloud where the host may change etc.
 
-Hence this image supports OSTicket sending of mail by sending directly to designated a SMTP server. 
+Hence this image supports osTicket sending of mail by sending directly to designated a SMTP server. 
 However, you must provide the relevant SMTP settings through environmental variables before this will function.
 
 To automatically collect email from an external IMAP or POP3 account, configure the settings for the relevant email address in 
@@ -126,7 +125,7 @@ The password associated with the user for SMTP authentication. Defaults to no va
 
 `CRON_INTERVAL`
 
-Specifies how often (in minutes) that OSTicket cron script should be ran to check for incoming emails. Defaults to 5 
+Specifies how often (in minutes) that osTicket cron script should be ran to check for incoming emails. Defaults to 5 
 minutes. Set to 0 to disable running of cron script. Note that this works in conjuction with the email check interval
 specified in the admin control panel, you need to specify both to the value you'd like!
 
@@ -141,10 +140,10 @@ your installation secret to be lost!*
 
 `INSTALL_CONFIG`
 
-If you require a configuration file for OSTicket with custom content then you should create one and mount it in your
+If you require a configuration file for osTicket with custom content then you should create one and mount it in your
 container as a volume. The placeholders for the MySQL connection must be retained as these will be populated automatically
 when the container starts. Set this environmental variable to the fully qualified file name of your custom configuration.
-If not specified, the default OSTicket sample configuration file is used.
+If not specified, the default osTicket sample configuration file is used.
 
 `INSTALL_EMAIL`
 

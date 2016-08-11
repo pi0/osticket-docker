@@ -1,0 +1,13 @@
+version: '2'
+services:
+  www:
+    image: pooya/osticket
+    volumes:
+      - osticket:/var/www
+    environment:
+      - VIRTUAL_HOST=osticket
+    network_mode: "bridge"
+    restart: always
+volumes:
+   osticket:
+    driver: local

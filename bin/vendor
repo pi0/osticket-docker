@@ -1,0 +1,11 @@
+#!/bin/bash
+# Vendor script that runs on every container update event
+
+# Deploy latest version
+echo "Deploying osTicket"
+php /var/www/src/manage.php deploy -gsv /var/www/src/public
+
+# Automate installation
+php /bin/osticket-install.php
+echo Applying configuration file security
+chmod 644 /var/www/src/public/ost-config.php

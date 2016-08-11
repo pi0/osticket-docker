@@ -1,0 +1,5 @@
+[program:cron]
+command = /usr/sbin/cron -f -L 15
+stdout_logfile  = /var/log/cron.log
+stderr_logfile  = /var/log/cron.log
+autorestart=true

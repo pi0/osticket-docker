@@ -5,8 +5,7 @@
 <a href="http://osticket.com"><img src="http://osticket.com/sites/default/files/osTicket.jpg"
 align="left" hspace="10" vspace="6"></a>
 
-Docker image for running always fresh and bleeding edge version of [osTicket](http://osticket.com/) Shipping with plugins and language packs.   
-**osTicket** is a widely-used open source support ticket system. It seamlessly
+Docker image for running always fresh and bleeding edge version of [osTicket](http://osticket.com/) Shipping with plugins and language packs. **osTicket** is a widely-used open source support ticket system. It seamlessly
 integrates inquiries created via email, phone and web-based forms into a
 simple easy-to-use multi-user web interface. Manage, organize and archive
 all your support requests and responses in one place while providing your

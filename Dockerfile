@@ -1,4 +1,4 @@
-FROM pooya/paas
+FROM banian/php
 MAINTAINER Pooya Parsa <pooya@pi0.ir>
 
 # Install packages

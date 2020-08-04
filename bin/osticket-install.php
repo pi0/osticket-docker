@@ -4,11 +4,12 @@
 
 //Script settings
 
-define('INSTALL_DIR','/var/www/src/public');
-define('SETUP_DIR',INSTALL_DIR.'/../setup'); // use git setup
-define('INC_DIR',INSTALL_DIR.'/include');
-define('INSTALL_CONFIG',INC_DIR.'/ost-sampleconfig.php');
-define('OSTICKET_CONFIGFILE',INC_DIR.'/ost-config.php');
+define('INSTALL_DIR','/var/www/src/public/');
+define('SETUP_DIR',INSTALL_DIR.'../setup/'); // use git setup
+define('INC_DIR',SETUP_DIR.'inc/');
+define('INCLUDE_DIR',INSTALL_DIR.'include/');
+define('INSTALL_CONFIG',INCLUDE_DIR.'ost-sampleconfig.php');
+define('OSTICKET_CONFIGFILE',INCLUDE_DIR.'ost-config.php');
 
 define('MAIL_CONFIG','/etc/msmtp.default');
 define('MAIL_CONFIG_FILE','/etc/msmtp');
@@ -73,8 +74,8 @@ function convertStrToBool($varName, $default) {
 // Require files (must be done before any output to avoid session start warnings)
 // $_SERVER['HTTP_ACCEPT_LANGUAGE'] = LANGUAGE; 
 chdir(SETUP_DIR);
-require SETUP_DIR.'/setup.inc.php';
-require SETUP_DIR.'/inc/class.installer.php';
+require SETUP_DIR.'setup.inc.php';
+require SETUP_DIR.'inc/class.installer.php';
 
 /************************* Mail Configuration *******************************************/
 echo "Configuring mail settings\n";

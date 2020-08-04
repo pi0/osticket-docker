@@ -1,18 +1,19 @@
-version: '2'
+version: '3'
 
 services:
 
   osticket:
+    build: .
     image: osticket/osticket
     environment:
       - MYSQL_HOST=mysql
       - MYSQL_DATABASE=osticket
       - MYSQL_USER=osticket
       - MYSQL_PASSWORD=0T1cket
-    
+
       # CHANGE ME
       - INSTALL_SECRET=secret
-        
+
       - LANGUAGE=fa
 
     links:

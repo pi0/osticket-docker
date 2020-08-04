@@ -2,7 +2,7 @@
 # Vendor script that runs on every container update event
 
 echo Deploying osTicket
-php /var/www/src/manage.php deploy -gsv /var/www/src/public || exit 1
+php /var/www/src/manage.php deploy -sfCgv /var/www/src/public || exit 1
 
 echo Install/Update osTicket
 php /bin/osticket-install.php || exit 1

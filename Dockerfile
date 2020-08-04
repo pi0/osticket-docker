@@ -17,6 +17,6 @@ COPY conf/msmtp /etc/msmtp.default
 # Conf files
 RUN touch /etc/msmtp /etc/osticket.secret.txt /etc/cron.d/osticket && \
     chown www-data:www-data /etc/msmtp /etc/osticket.secret.txt /etc/cron.d/osticket && \
-    chown root:www-data /bin/vendor && chmod 770 /bin/vendor
+    chown root:www-data /bin/vendor /bin/update && chmod 770 /bin/vendor /bin/update
 
 VOLUME /var/www

@@ -1,0 +1,66 @@
+#!/bin/bash
+set -e
+
+LOCK_FILE=/update.lock
+
+# Check if lock file exists
+if [ -f $LOCK_FILE ] ; then
+    # Check if really running
+    PID=`cat $LOCK_FILE`
+    if [ kill -s 0 $PID ] ; then
+        echo "$LOCK_FILE' with PID=$PID exists and running..."
+        exit 1
+    fi
+    echo "Warn: Cleaning stale lock file..."
+fi
+
+# Update lockfile with current PID
+echo $$ > $LOCK_FILE
+
+# Fix
+fix
+
+# Go to src
+cd /var/www/src
+
+# Git repo
+if [ ! -z $GIT_REPO ]; then
+  if [ -d .git ] ; then
+    run-as-www git pull
+  else
+    rmdir public
+    run-as-www git clone $GIT_REPO .
+  fi
+fi
+
+# Composer
+if [ -f composer.json ] ; then
+    run-as-www composer install --no-dev --no-interaction --no-progress --optimize-autoloader
+fi
+
+# .env
+if [ -f .env.example ] && [ ! -f .env ]; then
+    run-as-www cp -v .env.example .env
+fi
+
+# Laravel
+if [ -f artisan ] ; then
+    source .env
+    if [ -z $APP_KEY ]; then
+        run-as-www  php artisan key:generate
+    fi
+    run-as-www php artisan migrate || true
+fi
+
+# Yarn (do in background)
+if [ -f yarn.lock ] ; then
+    yarn-build &
+fi
+
+# User script
+if [ -x /bin/vendor ] ; then
+ run-as-www vendor
+fi
+
+# Remove lock file
+rm /update.lock

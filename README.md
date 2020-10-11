@@ -149,6 +149,10 @@ specified in the admin control panel, you need to specify both to the value you'
 
 # Environmental Variables
 
+`ROOT_PATH`
+
+If you want to host osTicket under a subdirectory path of your domain you must set this path here, so osTicket can properly reference it's source files. Defaults to `/`.
+
 `INSTALL_SECRET`
 
 Secret string value for OST installation. A random value is generated on start-up and persisted within the container if this is not provided.

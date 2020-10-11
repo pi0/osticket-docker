@@ -16,6 +16,7 @@ services:
 
       - LANGUAGE=fa
 
+      - ROOT_PATH=/
     links:
       - mysql:mysql
     ports:

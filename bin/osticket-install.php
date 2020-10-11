@@ -47,6 +47,7 @@ $vars = array(
   'smtp_pass'       => getenv("SMTP_PASSWORD"),
   'cron_interval'   => getenv("CRON_INTERVAL")        ?: 5,
   'siri'     => getenv("INSTALL_SECRET"),
+  'host' => getenv("HOST"),
   'root_path' => getenv("ROOT_PATH"),
   'config'   => getenv("INSTALL_CONFIG") ?: INSTALL_CONFIG,
 );
@@ -224,5 +225,12 @@ if(db_query($sql, false)) {
     echo "System Language Set\n";
 }
 
-// Install finished   
+// Update helpdesk_url
+echo "Setting helpdesk url to ".$vars['host']."\n";
+$sql = "UPDATE `".$vars['prefix']."config` SET `value`='".$vars['host'].$vars['root_path']."' WHERE `key`='helpdesk_url'";
+if (db_query($sql, false)) {
+    echo "helpdesk url Set\n";
+}
+
+// Install finished
 echo "Install Script finished!\n";

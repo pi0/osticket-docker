@@ -149,6 +149,10 @@ specified in the admin control panel, you need to specify both to the value you'
 
 # Environmental Variables
 
+`HOST`
+
+Sets the 'host' part of the osTicket URL in database, eg. for links in ticket mails.
+
 `ROOT_PATH`
 
 If you want to host osTicket under a subdirectory path of your domain you must set this path here, so osTicket can properly reference it's source files. Defaults to `/`.

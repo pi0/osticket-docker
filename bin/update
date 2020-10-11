@@ -20,6 +20,13 @@ echo $$ > $LOCK_FILE
 # Fix
 fix
 
+cp /tmp/default.conf.template /etc/nginx/conf.d/default.conf
+# configure nginx for possible ROOT_PATH
+if [ ! -z $ROOT_PATH ] && [ "$ROOT_PATH" != '/' ]; then
+  nginx_rewrite="location ^~ $ROOT_PATH { rewrite ^$ROOT_PATH(.*)\$ /\$1 last;}"
+  sed -i "s|# %APPEND_REDIRECT_HERE%|$nginx_rewrite|g" /etc/nginx/conf.d/default.conf
+fi
+
 # Go to src
 cd /var/www/src
 

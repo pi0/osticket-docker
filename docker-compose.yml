@@ -16,6 +16,8 @@ services:
 
       - LANGUAGE=fa
 
+      - HOST=localhost:80
+      - ROOT_PATH=/
     links:
       - mysql:mysql
     ports:

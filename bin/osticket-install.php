@@ -47,7 +47,9 @@ $vars = array(
   'smtp_pass'       => getenv("SMTP_PASSWORD"),
   'cron_interval'   => getenv("CRON_INTERVAL")        ?: 5,
   'siri'     => getenv("INSTALL_SECRET"),
-  'config'   => getenv("INSTALL_CONFIG") ?: INSTALL_CONFIG, 
+  'host' => getenv("HOST"),
+  'root_path' => getenv("ROOT_PATH"),
+  'config'   => getenv("INSTALL_CONFIG") ?: INSTALL_CONFIG,
 );
 
 // Helper functions
@@ -72,7 +74,7 @@ function convertStrToBool($varName, $default) {
 }
 
 // Require files (must be done before any output to avoid session start warnings)
-// $_SERVER['HTTP_ACCEPT_LANGUAGE'] = LANGUAGE; 
+// $_SERVER['HTTP_ACCEPT_LANGUAGE'] = LANGUAGE;
 chdir(SETUP_DIR);
 require SETUP_DIR.'setup.inc.php';
 require SETUP_DIR.'inc/class.installer.php';
@@ -193,6 +195,10 @@ $configFile= str_replace('%CONFIG-DBUSER',$vars['dbuser'],$configFile);
 $configFile= str_replace('%CONFIG-DBPASS',$vars['dbpass'],$configFile);
 $configFile= str_replace('%CONFIG-PREFIX',$vars['prefix'],$configFile);
 $configFile= str_replace('%CONFIG-SIRI',$vars['siri'],$configFile);
+if($vars['root_path']){
+  $configFile = str_replace("# define('ROOT_PATH', '/support/');","define('ROOT_PATH', '".$vars['root_path']."');",$configFile);
+}
+
 if (!file_put_contents($installer->getConfigFile(), $configFile)) {
    err("Failed to write configuration file");
 }
@@ -219,5 +225,12 @@ if(db_query($sql, false)) {
     echo "System Language Set\n";
 }
 
-// Install finished   
+// Update helpdesk_url
+echo "Setting helpdesk url to ".$vars['host']."\n";
+$sql = "UPDATE `".$vars['prefix']."config` SET `value`='".$vars['host'].$vars['root_path']."' WHERE `key`='helpdesk_url'";
+if (db_query($sql, false)) {
+    echo "helpdesk url Set\n";
+}
+
+// Install finished
 echo "Install Script finished!\n";

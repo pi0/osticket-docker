@@ -1,10 +1,9 @@
-version: '3'
+version: "3"
 
 services:
-
   osticket:
     build: .
-    image: osticket/osticket
+    image: jrcichra/osticket
     environment:
       - MYSQL_HOST=mysql
       - MYSQL_DATABASE=osticket
@@ -23,10 +22,10 @@ services:
     restart: always
 
   mysql:
-    image: mariadb
+    image: ghcr.io/linuxserver/mariadb
     environment:
-       - MYSQL_RANDOM_ROOT_PASSWORD=true
-       - MYSQL_DATABASE=osticket
-       - MYSQL_USER=osticket
-       - MYSQL_PASSWORD=0T1cket
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_DATABASE=osticket
+      - MYSQL_USER=osticket
+      - MYSQL_PASSWORD=0T1cket
     restart: always

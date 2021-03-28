@@ -1,4 +1,4 @@
-FROM banian/php
+FROM jrcichra/docker-php
 MAINTAINER Pooya Parsa <pooya@pi0.ir>
 
 # Install packages
